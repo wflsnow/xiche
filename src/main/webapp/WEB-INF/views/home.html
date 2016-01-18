@@ -1,0 +1,20 @@
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8"></meta>
+<link rel="stylesheet" th:href="@{/resources/css/bootstrap.min.css}"></link>
+<link rel="stylesheet" th:href="@{/resources/css/bootstrap-theme.min.css}"></link>
+<link rel="stylesheet" th:href="@{/resources/css/layout.css}"></link>
+</head>
+<body>
+  <div th:replace="layout::header"></div>
+
+  <div class="container">
+    <div class="panel panel-default">
+      <div class="panel-heading"><h3>Welcome back, <span th:text="${user }"></span></h3></div>
+      <div class="panel-body">Hello world!</div>
+    </div>
+  </div>
+  <div th:replace="layout::footer"></div>
+</body>
+</html>

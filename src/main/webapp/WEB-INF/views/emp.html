@@ -1,0 +1,117 @@
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8"></meta>
+<link rel="stylesheet" th:href="@{/resources/css/bootstrap.min.css}"></link>
+<link rel="stylesheet" th:href="@{/resources/css/bootstrap-theme.min.css}"></link>
+<link rel="stylesheet" th:href="@{/resources/css/dataTables.bootstrap.min.css}"></link>
+<link rel="stylesheet" th:href="@{/resources/css/jquery.dataTables.min.css}"></link>
+<link rel="stylesheet" th:href="@{/resources/css/layout.css}"></link>
+</head>
+<body>
+  <div class="container">
+  <div class="row">
+    <form id="empForm" action="" method="POST" th:object="${empForm}">
+      <div class="row">
+        <div class="col-md-6">
+          <label class="sr-only" for="name">Name:</label>
+          <div class="input-group">
+          <input type="text" id="name" th:field="*{name}" class="form-control" placeholder="Employee name" required="required" autofocus="autofocus" />
+          <span class="input-group-addon">Name</span>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <label class="sr-only" for="idno">ID No.:</label>
+          <div class="input-group">
+          <input type="text" id="idno" th:field="*{idno}" class="form-control" placeholder="ID No." required="required" />
+          <span class="input-group-addon">ID No.</span>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <label class="sr-only" for="phone">Phone:</label>
+          <div class="input-group">
+          <input type="text" id="phone" th:field="*{phone}" class="form-control" placeholder="Phone" required="required" />
+          <span class="input-group-addon">Phone</span>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <label class="sr-only" for="age">Age:</label>
+          <div class="input-group">
+          <input type="text" id="age" th:field="*{age}" class="form-control" placeholder="Age" />
+          <span class="input-group-addon">Age</span>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <label class="sr-only" for="address">Address:</label>
+          <div class="input-group">
+          <input type="text" id="address" th:field="*{address}" class="form-control" placeholder="Address" />
+          <span class="input-group-addon">Address</span>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="btn-group" data-toggle="buttons">
+            <label for="male"> Male </label>
+            <input type="radio" th:field="*{gender}" id="male" value="Male" checked="checked" />
+            <label for="female"> Female </label>
+            <input type="radio" th:field="*{gender}" id="female" value="Female" autocomplete="off" />
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-3">
+          <select th:field="*{city}" id="popcity" class="form-control">
+            <option id="cityNone" value="" selected="selected">--- City ---</option>
+            <option class="city" th:each="city: ${cities}" th:id="${city}" th:value="${city}" th:text="${city}"></option>
+          </select>
+        </div>
+        <div class="col-md-3">
+          <select th:field="*{district}" id="popdistrict" class="form-control">
+            <option id="districtNone" value="" selected="selected">--- District ---</option>
+            <option class="district" th:each="district: ${districts}" th:id="${district}" th:value="${district}" th:text="${district}"></option>
+          </select>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <label class="sr-only" for="empno">Employee No.:</label>
+          <div class="input-group">
+          <input type="text" id="empno" th:field="*{empno}" class="form-control" readonly="readonly" placeholder="Employee No." />
+          <span class="input-group-addon">Emp No.</span>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <div id="success" class="alert alert-success" style="display: none">Successful!</div>
+          <div id="fail" class="alert alert-danger" style="display: none">Failed!</div>
+        </div>
+      </div>
+      <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+    </form>
+  </div>
+  </div>
+  <script type="text/javascript" th:src="@{/resources/js/jquery-1.11.3.min.js}"></script>
+  <script type="text/javascript" th:src="@{/resources/js/bootstrap.min.js}"></script>
+  <script type="text/javascript" th:src="@{/resources/js/jquery.dataTables.min.js}"></script>
+  <script type="text/javascript" th:src="@{/resources/js/dataTables.bootstrap.min.js}"></script>
+  <script type="text/javascript" th:src="@{/resources/js/jquery.validate.min.js}"></script>
+  <script type="text/javascript" th:src="@{/resources/js/additional-methods.min.js}"></script>
+  <script type="text/javascript" th:src="@{/resources/js/emp.js}"></script>
+  <!-- 
+  <script th:inline="javascript">
+  /*<![CDATA[*/
+  	$('#city').val(/*[[${empForm.city}]]*/);
+  /*]]>*/
+</script> -->
+</body>
+</html>

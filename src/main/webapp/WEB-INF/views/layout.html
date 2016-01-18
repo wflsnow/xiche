@@ -1,0 +1,45 @@
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+</head>
+<body>
+
+	<div class="navbar navbar-default navbar-fixed-top" th:fragment="header">
+      <div class="container">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="#">KKCW</a>
+        </div>
+        <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav" th:with="action=${#httpServletRequest.getRequestURI()}">
+            <li th:classappend="${action == '/xiche/' ? 'active':''}">
+            	<a href="#" th:href="@{/}">Home</a>
+            </li>
+            <li th:classappend="${action.indexOf('orders') > -1 ? 'active':''}" sec:authorize="hasRole('USER')">
+            	<a th:href="@{/orders}">Orders</a>
+            </li>
+            <li th:classappend="${action.indexOf('staff') > -1 ? 'active':''}">
+            	<a href="#" th:href="@{/staff}">Staff</a>
+            </li>
+            <li sec:authorize="hasRole('ADMIN')"><a th:href="@{/admin}">Admin</a></li>
+          </ul>
+          <ul class="nav navbar-nav navbar-right" id="logout">
+            <li>
+              <form th:action="@{/logout}" method="post">
+              <button type="submit" class="btn btn-xs btn-default" aria-label="Logout">
+              	<span class="glyphicon glyphicon glyphicon-log-out" aria-hidden="true"></span>
+              </button>
+              <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+              </form>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    
+    <div>Content goes here</div>
+    
+    <div class="navbar navbar-fixed-bottom navbar-default" th:fragment="footer" id="footer">
+    &copy; 2016 KK Car Washing Co Ltd.
+    </div>
+</body>
+</html>

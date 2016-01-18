@@ -1,0 +1,106 @@
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8"></meta>
+<link rel="stylesheet" th:href="@{/resources/css/bootstrap.min.css}"></link>
+<link rel="stylesheet" th:href="@{/resources/css/bootstrap-theme.min.css}"></link>
+<link rel="stylesheet" th:href="@{/resources/css/dataTables.bootstrap.min.css}"></link>
+<link rel="stylesheet" th:href="@{/resources/css/jquery.dataTables.min.css}"></link>
+<link rel="stylesheet" th:href="@{/resources/css/layout.css}"></link>
+</head>
+<body>
+  <div th:replace="layout::header"></div>
+
+  <div class="container">
+  <form th:action="@{/staff}" method="post" th:object="${searchForm} ">
+    <div class="panel panel-default">
+      <div class="panel-heading text-left">Staff Management</div>
+      <div class="row">
+        <div class="col-md-2">
+          <select id="city" class="form-control" th:field="*{city}">
+            <option id="cityNone" value="" selected="selected">--- City ---</option>
+            <option class="city" th:each="city: ${cities}" th:id="${city}" th:value="${city}" th:text="${city}"></option>
+          </select>
+        </div>
+        <div class="col-md-2">
+          <select id="district" class="form-control" th:field="*{district}">
+            <option id="districtNone" value="" selected="selected">--- District ---</option>
+            <option class="district" th:each="district: ${districts}" th:id="${district}" th:value="${district}" th:text="${district}"></option>
+          </select>
+        </div>
+        <div class="col-md-4 col-md-offset-1">
+          <div class="input-group" role="group">
+            <input id="empno" type="text" class="form-control" placeholder="Emp No..." th:field="*{empno}" />
+            <span class="input-group-btn">
+              <button class="btn btn-info" type="submit" id="searchBtn">Search</button>
+            </span>
+            <span class="input-group-btn">
+              <button class="btn btn-warning" type="reset" id="resetBtn">Reset</button>
+            </span>
+          </div>
+        </div>
+        <div class="col-md-1 col-md-offset-2">
+          <a class="btn btn-primary btn-sm" id="btnAdd" data-toggle="modal" data-target="#popup"><span class="glyphicon glyphicon-plus"></span></a>
+        </div>
+      </div>
+      <hr />
+      <table class="table table-striped table-hover table-bordered" id="staff">
+      <thead>
+      <tr>
+      <th>Name</th><th>ID No.</th><th>Emp No.</th><th>Gender</th><th>Age</th><th>Address</th><th>Phone</th><th>City</th><th>District</th>
+      <th><span class="glyphicon glyphicon-cog"></span> <span class="glyphicon glyphicon-minus"></span></th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr th:each="emp, status : ${employees}">
+      <td th:text="${emp.name}">Name</td>
+      <td th:text="${emp.idno}">ID No.</td>
+      <td th:text="${emp.empno}">Emp No.</td>
+      <td th:text="${emp.gender}">Gender</td>
+      <td th:text="${emp.age}">Age</td>
+      <td th:text="${emp.address}">Address</td>
+      <td th:text="${emp.phone}">Phone</td>
+<!--       <td th:text="${emp.city} + '/' + ${emp.district}">Area</td> -->
+      <td th:text="${emp.city}">City</td>
+      <td th:text="${emp.district}">District</td>
+      <td>
+      <a class="btn btn-info btn-xs edit" data-toggle="modal" data-target="#popup"><span class="glyphicon glyphicon-cog"></span></a>
+      <button class="btn btn-danger btn-xs del"><span class="glyphicon glyphicon-minus"></span></button>
+      </td>
+      </tr>
+      </tbody>
+      </table>
+    </div>
+  </form>
+  </div>
+
+  <div th:replace="layout::footer"></div>
+  
+  <!-- modal -->
+  <div class="modal fade" id="popup" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h4 class="modal-title">Employee</h4>
+        </div>
+        <div class="modal-body">
+          <div class="te"></div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" id="popupOk">OK</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script type="text/javascript" th:src="@{/resources/js/jquery-1.11.3.min.js}"></script>
+  <script type="text/javascript" th:src="@{/resources/js/bootstrap.min.js}"></script>
+  <script type="text/javascript" th:src="@{/resources/js/jquery.dataTables.min.js}"></script>
+  <script type="text/javascript" th:src="@{/resources/js/dataTables.bootstrap.min.js}"></script>
+  <script type="text/javascript" th:src="@{/resources/js/jquery.validate.min.js}"></script>
+  <script type="text/javascript" th:src="@{/resources/js/additional-methods.min.js}"></script>
+  <script type="text/javascript" th:src="@{/resources/js/staff.js}"></script>
+</body>
+</html>

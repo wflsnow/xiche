@@ -1,0 +1,32 @@
+#logout {
+	margin-top: 15px;
+}
+
+#footer {
+	text-align: center;
+}
+
+body {
+	padding: 60px;
+}
+
+.navbar-default .navbar-nav>li>a:hover {
+	background-color: #eee;
+}
+
+div.navbar-fixed-bottom {
+	min-height: 35px;
+	vertical-align: middle;
+}
+
+span.help-block {
+	color: #ff8080
+}
+
+#orders {
+	font-size: 11px;
+}
+
+#orders th, #orders td {
+	padding-left: 5px;
+}

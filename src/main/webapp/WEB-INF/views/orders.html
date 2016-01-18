@@ -1,0 +1,127 @@
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8"></meta>
+<link rel="stylesheet" th:href="@{/resources/css/bootstrap.min.css}"></link>
+<link rel="stylesheet" th:href="@{/resources/css/bootstrap-theme.min.css}"></link>
+<link rel="stylesheet" th:href="@{/resources/css/dataTables.bootstrap.min.css}"></link>
+<link rel="stylesheet" th:href="@{/resources/css/jquery.dataTables.min.css}"></link>
+<link rel="stylesheet" th:href="@{/resources/css/bootstrap-datetimepicker.min.css}"></link>
+<link rel="stylesheet" th:href="@{/resources/css/layout.css}"></link>
+</head>
+<body>
+  <div th:replace="layout::header"></div>
+
+  <div class="container">
+  <form th:action="@{/orders}" method="post" th:object="${orderSearch} ">
+    <div class="panel panel-default">
+      <div class="panel-heading text-left">Order Management</div>
+      <div class="row">
+        <div class="col-md-2">
+          <select id="category" class="form-control" th:field="*{category}">
+            <option value="" selected="selected">Service Category</option>
+            <option value="Outer">Outer</option>
+            <option value="InnerAndOuter">Inner and Outer</option>
+            <option value="Waxing">Waxing</option>
+          </select>
+        </div>
+        <div class="col-md-2">
+          <select id="status" class="form-control" th:field="*{status}">
+            <option value="" selected="selected">Order Status</option>
+            <option value="Waiting">Waiting</option>
+            <option value="Ongoing">Ongoing</option>
+            <option value="Finished">Finished</option>
+          </select>
+        </div>
+        <div class="col-md-3">
+          <div class="form-group">
+            <div class='input-group date' id='startDate'>
+              <input type='text' th:field="*{start}" class="form-control" /> <span class="input-group-addon"> <span class="glyphicon glyphicon-calendar"></span></span>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="form-group">
+            <div class='input-group date' id='endDate'>
+              <input type='text' th:field="*{end}" class="form-control" /> <span class="input-group-addon"> <span class="glyphicon glyphicon-calendar"></span></span>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-2">
+          <div class="btn-group">
+            <button class="btn btn-info btn-sm" type="submit" id="searchBtn"><span class="glyphicon glyphicon-search"></span></button>
+            <button class="btn btn-warning btn-sm" type="reset" id="resetBtn"><span class="glyphicon glyphicon-repeat"></span></button>
+            <a class="btn btn-primary btn-sm" id="btnAdd" data-toggle="modal" data-target="#popup"><span class="glyphicon glyphicon-plus"></span></a>
+          </div>
+        </div>
+      </div>
+      <hr />
+      <table class="table table-striped table-hover table-bordered" id="orders">
+      <thead>
+      <tr>
+      <th>Number</th><th>Status</th><th>Category</th><th>User</th><th>License</th><th>Location</th><th>Price</th>
+      <th>Submit time</th><th>Estimate Time</th><th>Finished Time</th><th>Rate</th><th>Comments</th>
+<!--       <th title="Picture Before"><span class="glyphicon glyphicon-picture text-info"></span></th> -->
+<!--       <th title="Picture After"><span class="glyphicon glyphicon-picture text-danger"></span></th> -->
+      <th><span class="glyphicon glyphicon-cog"></span> <span class="glyphicon glyphicon-minus"></span></th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr th:each="order : ${orders}">
+      <td th:text="${order.number}"></td>
+      <td th:text="${order.status}"></td>
+      <td th:text="${order.category}"></td>
+      <td th:text="${order.user}"></td>
+      <td th:text="${order.license}"></td>
+      <td th:text="${order.location}"></td>
+      <td th:text="${order.price}"></td>
+      <td th:text="${#dates.format(order.startTime, 'yyyy-MM-dd HH:mm')}"></td>
+      <td th:text="${#dates.format(order.estimationTime, 'yyyy-MM-dd HH:mm')}"></td>
+      <td th:text="${#dates.format(order.finishedTime, 'yyyy-MM-dd HH:mm')}"></td>
+      <td th:text="${order.rate}"></td>
+      <td th:text="${order.comments}"></td>
+<!--       <td th:text="${order.picBefore}"></td> -->
+<!--       <td th:text="${order.picAfter}"></td> -->
+      <td>
+      <a class="btn btn-info btn-xs edit" data-toggle="modal" data-target="#popup"><span class="glyphicon glyphicon-cog"></span></a>
+      <button class="btn btn-danger btn-xs del"><span class="glyphicon glyphicon-minus"></span></button>
+      </td>
+      </tr>
+      </tbody>
+      </table>
+    </div>
+  </form>
+  </div>
+
+  <div th:replace="layout::footer"></div>
+  
+  <!-- modal -->
+  <div class="modal fade" id="popup" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h4 class="modal-title">Order</h4>
+        </div>
+        <div class="modal-body">
+          <div class="te"></div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" id="popupOk">OK</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <script type="text/javascript" th:src="@{/resources/js/jquery-1.11.3.min.js}"></script>
+  <script type="text/javascript" th:src="@{/resources/js/bootstrap.min.js}"></script>
+  <script type="text/javascript" th:src="@{/resources/js/jquery.dataTables.min.js}"></script>
+  <script type="text/javascript" th:src="@{/resources/js/dataTables.bootstrap.min.js}"></script>
+  <script type="text/javascript" th:src="@{/resources/js/jquery.validate.min.js}"></script>
+  <script type="text/javascript" th:src="@{/resources/js/additional-methods.min.js}"></script>
+  <script type="text/javascript" th:src="@{/resources/js/moment.min.js}"></script>
+  <script type="text/javascript" th:src="@{/resources/js/bootstrap-datetimepicker.min.js}"></script>
+  <script type="text/javascript" th:src="@{/resources/js/orders.js}"></script>
+</body>
+</html>

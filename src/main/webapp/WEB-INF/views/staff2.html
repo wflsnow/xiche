@@ -1,0 +1,79 @@
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8"></meta>
+<link rel="stylesheet" th:href="@{/resources/css/bootstrap.min.css}"></link>
+<link rel="stylesheet" th:href="@{/resources/css/bootstrap-theme.min.css}"></link>
+<link rel="stylesheet" th:href="@{/resources/css/dataTables.bootstrap.min.css}"></link>
+<link rel="stylesheet" th:href="@{/resources/css/jquery.dataTables.min.css}"></link>
+<link rel="stylesheet" th:href="@{/resources/css/layout.css}"></link>
+</head>
+<body>
+<div th:replace="layout::header"></div>
+
+<div class="container">
+<div class="panel panel-default">
+<div class="panel-heading text-left">
+Staff Management
+</div>
+<div class="row">
+<div class="col-md-2">
+	<select name="city" id="city" th:each="city: ${cities}" class="form-control">
+	<option id="cityNone" value="none" selected="selected">City</option>
+	</select>
+</div>
+<div class="col-md-2">
+	<select name="district" id="district" class="form-control">
+	<option id="districtNone" value="none" selected="selected">District</option>
+	</select>
+</div>
+<div class="col-md-4">
+	<div class="input-group" role="group">
+	  <input name="empno" type="text" class="form-control" placeholder="Emp No..."/>
+	  <span class="input-group-btn">
+	    <button class="btn btn-default" type="button">Search</button>
+	  </span>
+	</div>
+</div>
+</div>
+<hr/>
+<table class="table table-striped table-hover table-bordered" id="staff">
+<thead>
+<tr>
+<th>Name</th>
+<th>ID No.</th>
+<th>Emp No.</th>
+<th>Gender</th>
+<th>Age</th>
+<th>Address</th>
+<th>Phone</th>
+<th>Area</th>
+<th><span class="glyphicon glyphicon-cog"></span></th>
+</tr>
+</thead>
+<tbody>
+<tr th:each="emp, status : ${employees}">
+<td th:text="${emp.name}">Name</td>
+<td th:text="${emp.idno}">ID No.</td>
+<td th:text="${emp.empno}">Emp No.</td>
+<td th:text="${emp.gender}">Gender</td>
+<td th:text="${emp.age}">Age</td>
+<td th:text="${emp.address}">Address</td>
+<td th:text="${emp.phone}">Phone</td>
+<td th:text="${emp.city} + '/' + ${emp.district}">Area</td>
+<td><button class="btn btn-info btn-xs"><span class="glyphicon glyphicon-cog"><span class="sr-only">+/-</span></span></button></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<div th:replace="layout::footer"></div>
+
+<script type="text/javascript" th:src="@{/resources/js/jquery-1.11.3.min.js}"></script>
+<script type="text/javascript" th:src="@{/resources/js/bootstrap.min.js}"></script>
+<script type="text/javascript" th:src="@{/resources/js/jquery.dataTables.min.js}"></script>
+<script type="text/javascript" th:src="@{/resources/js/dataTables.bootstrap.min.js}"></script>
+<script type="text/javascript" th:src="@{/resources/js/staff.js}"></script>
+</body>
+</html>
